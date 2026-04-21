@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roma's Cake</title>
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<!-- ICONOS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+    --rosa:#f8c8dc;
+    --rosa-fuerte:#e89ab4;
+    --marron:#6b3e26;
+    --crema:#fff5f8;
+    --dark:#2b1b17;
+}
+
+body {
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:var(--crema);
+    color:var(--marron);
+}
+
+.dark {
+    background:var(--dark);
+    color:white;
+}
+
+/* HEADER */
+header {
+    background:var(--rosa);
+    text-align:center;
+    padding:25px;
+}
+
+header h1 {
+    margin:0;
+}
+
+/* NAV */
+nav {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    background:var(--rosa-fuerte);
+    padding:10px;
+}
+
+nav button {
+    border:none;
+    padding:10px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    background:white;
+    transition:0.3s;
+}
+
+nav button:hover {
+    background:var(--marron);
+    color:white;
+}
+
+/* DARK BUTTON */
+.toggle-dark {
+    position:fixed;
+    top:10px;
+    right:10px;
+    background:black;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+/* PRODUCTS */
+.products {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card {
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover {
+    transform:translateY(-5px);
+}
+
+.card img {
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.card-content {
+    padding:15px;
+}
+
+.price {
+    font-weight:bold;
+}
+
+button.buy {
+    background:var(--marron);
+    color:white;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+button.buy:hover {
+    background:black;
+}
+
+/* CART */
+.cart {
+    position:fixed;
+    bottom:10px;
+    right:10px;
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    width:260px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.cart h3 {
+    margin-top:0;
+}
+
+.total {
+    font-weight:bold;
+    margin-top:10px;
+}
+
+/* WHATSAPP */
+.whatsapp {
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    background:#25D366;
+    color:white;
+    padding:15px;
+    border-radius:50%;
+    font-size:22px;
+}
+
+/* FOOTER */
+footer {
+    text-align:center;
+    padding:20px;
+    background:var(--rosa);
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle-dark" onclick="toggleDark()">
+<i class="fa-solid fa-moon"></i>
+</button>
+
+<header>
+<h1><i class="fa-solid fa-cake-candles"></i> Roma's Cake</h1>
+<p>By Melanie 💕</p>
+</header>
+
+<nav>
+<button onclick="filtrar('all')">Todo</button>
+<button onclick="filtrar('torta')">Tortas</button>
+<button onclick="filtrar('galleta')">Galletas</button>
+<button onclick="filtrar('rellena')">Rellenas</button>
+</nav>
+
+<section class="products">
+
+<div class="card" data-cat="torta" data-name="Torta Chocolate" data-price="20" data-aos="fade-up">
+<img src="https://images.unsplash.com/photo-1599785209707-28c0bfc1c7f3">
+<div class="card-content">
+<h3>Torta Chocolate</h3>
+<p class="price">$20</p>
+<button class="buy" onclick="addCart(this)">
+<i class="fa-solid fa-cart-plus"></i> Agregar
+</button>
+</div>
+</div>
+
+<div class="card" data-cat="galleta" data-name="Galletas" data-price="10" data-aos="fade-up">
+<img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c">
+<div class="card-content">
+<h3>Galletas</h3>
+<p class="price">$10</p>
+<button class="buy" onclick="addCart(this)">
+<i class="fa-solid fa-cart-plus"></i> Agregar
+</button>
+</div>
+</div>
+
+<div class="card" data-cat="rellena" data-name="Cookie NY" data-price="15" data-aos="fade-up">
+<img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f">
+<div class="card-content">
+<h3>Cookie NY</h3>
+<p class="price">$15</p>
+<button class="buy" onclick="addCart(this)">
+<i class="fa-solid fa-cart-plus"></i> Agregar
+</button>
+</div>
+</div>
+
+</section>
+
+<div class="cart">
+<h3><i class="fa-solid fa-cart-shopping"></i> Pedido</h3>
+<ul id="cart-list"></ul>
+<p class="total">Total: $<span id="total">0</span></p>
+<button onclick="sendWhatsApp()">
+<i class="fa-brands fa-whatsapp"></i> Pedir
+</button>
+</div>
+
+<footer>
+<p>© 2026 Roma's Cake</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/584241814302" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+AOS.init();
+
+let cart = [];
+
+function addCart(btn){
+    let card = btn.closest(".card");
+    let name = card.dataset.name;
+    let price = Number(card.dataset.price);
+
+    cart.push({name, price});
+    renderCart();
+}
+
+function renderCart(){
+    let list = document.getElementById("cart-list");
+    let total = 0;
+    list.innerHTML="";
+
+    cart.forEach(item=>{
+        let li = document.createElement("li");
+        li.textContent = item.name + " - $" + item.price;
+        list.appendChild(li);
+        total += item.price;
+    });
+
+    document.getElementById("total").textContent = total;
+}
+
+function sendWhatsApp(){
+    let msg = "Hola, quiero pedir:%0A";
+    cart.forEach(i=>{
+        msg += "- " + i.name + " $" + i.price + "%0A";
+    });
+
+    window.open("https://wa.me/584241814302?text="+msg);
+}
+
+function filtrar(cat){
+    document.querySelectorAll(".card").forEach(c=>{
+        c.style.display = (cat==="all" || c.dataset.cat===cat) ? "block":"none";
+    });
+}
+
+function toggleDark(){
+    document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>

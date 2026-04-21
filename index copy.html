@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roma's Cake</title>
+
+<style>
+:root {
+    --rosa: #f8c8dc;
+    --rosa-fuerte: #e89ab4;
+    --marron: #6b3e26;
+    --crema: #fff5f8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--crema);
+    color: var(--marron);
+}
+
+/* HEADER */
+header {
+    background: var(--rosa);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+header p {
+    font-style: italic;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    background: var(--rosa-fuerte);
+}
+
+nav button {
+    border: none;
+    padding: 10px 15px;
+    background: white;
+    color: var(--marron);
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+nav button:hover {
+    background: var(--marron);
+    color: white;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.hero h2 {
+    font-size: 2rem;
+}
+
+/* ABOUT */
+.about {
+    padding: 30px;
+    text-align: center;
+}
+
+/* PRODUCTOS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--rosa);
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Roma's Cake</h1>
+    <p>Delicias hechas con amor por Melanie 💕</p>
+</header>
+
+<nav>
+    <button onclick="filtrar('all')">Todo</button>
+    <button onclick="filtrar('torta')">Tortas</button>
+    <button onclick="filtrar('galleta')">Galletas</button>
+    <button onclick="filtrar('rellena')">Rellenas</button>
+</nav>
+
+<section class="hero">
+    <h2>Repostería artesanal 🍰</h2>
+    <p>Calidad, sabor y amor en cada creación</p>
+</section>
+
+<section class="about">
+    <h2>Sobre Melanie</h2>
+    <p>Melanie es una apasionada repostera que crea deliciosas tortas, galletas y dulces tipo New York, cuidando cada detalle para ofrecer productos únicos.</p>
+</section>
+
+<section class="products" id="productos">
+
+    <div class="card" data-categoria="torta">
+        <img src="https://images.unsplash.com/photo-1599785209707-28c0bfc1c7f3" alt="">
+        <div class="card-content">
+            <h3>Torta de Chocolate</h3>
+            <p>Suave y deliciosa</p>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="galleta">
+        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c" alt="">
+        <div class="card-content">
+            <h3>Galletas clásicas</h3>
+            <p>Crujientes y caseras</p>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="rellena">
+        <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="">
+        <div class="card-content">
+            <h3>Cookies rellenas</h3>
+            <p>Estilo New York 🍪</p>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 Roma's Cake | Diseñado con amor 💖</p>
+</footer>
+
+<script>
+function filtrar(categoria) {
+    let productos = document.querySelectorAll(".card");
+
+    productos.forEach(p => {
+        if (categoria === "all") {
+            p.style.display = "block";
+        } else {
+            if (p.dataset.categoria === categoria) {
+                p.style.display = "block";
+            } else {
+                p.style.display = "none";
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>
